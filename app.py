@@ -48,5 +48,10 @@ def add_score():
         return jsonify({'message': 'Score updated successfully!'})
     return jsonify({'message': 'Score not added, highscore is larger than new entry'})
 
+@app.route('/get_highscores', methods=['GET'])
+def get_highscores():
+    bubble_sort(highscores)
+    return jsonify(highscores)
+
 if __name__ == '__main__':
     app.run(debug=True)
