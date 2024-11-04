@@ -52,10 +52,30 @@ def add_score():
 def get_highscores():
     bubble_sort(highscores)
 
+    player_entry = None
+    player_position = None
+
     limit = request.args.get('limit', default=len(highscores), type=int)
+    player_name = request.args.get('player_name', default='', type=str)
     limited_highscores = highscores[:limit]
 
-    return jsonify(limited_highscores)
+    if player_name:
+        for entry in highscores:
+            if entry['name'] == player_name:
+                player_entry = entry
+        
+    if player_entry:
+        player_position = highscores.index(player_entry)
+
+    response = {
+        "highscores": limited_highscores,
+        "player_info": {
+            "position": player_position,
+            "entry": player_entry
+        }
+    }
+
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run(debug=True)
