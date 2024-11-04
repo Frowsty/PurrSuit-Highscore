@@ -51,7 +51,11 @@ def add_score():
 @app.route('/get_highscores', methods=['GET'])
 def get_highscores():
     bubble_sort(highscores)
-    return jsonify(highscores)
+
+    limit = request.args.get('limit', default=len(highscores), type=int)
+    limited_highscores = highscores[:limit]
+
+    return jsonify(limited_highscores)
 
 if __name__ == '__main__':
     app.run(debug=True)
