@@ -56,9 +56,9 @@ def get_highscores():
     player_position = None
 
     limit = request.args.get('limit', default=len(highscores), type=int)
-    player_name = request.args.get('player_name', default='', type=str)
     limited_highscores = highscores[:limit]
 
+    player_name = request.args.get('player_name', default='', type=str)
     if player_name:
         for entry in highscores:
             if entry['name'] == player_name:
